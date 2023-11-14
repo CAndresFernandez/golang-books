@@ -1,8 +1,8 @@
 package config
 
 import (
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 // database points to ORM
@@ -12,7 +12,8 @@ var (
 
 // database connection
 func Connect(){
-	d, err := gorm.Open("mysql", "books:books@(127.0.0.1:3306)/gorest?charset=utf8mb4&parseTime=True&loc=Local")
+	dsn := "books:books@(127.0.0.1:3306)/gorest?charset=utf8mb4&parseTime=True&loc=Local"
+	d, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}

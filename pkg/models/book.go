@@ -2,7 +2,7 @@ package models
 
 import (
 	"github.com/CAndresFernandez/go-books/pkg/config"
-	"github.com/jinzhu/gorm"
+	"gorm.io/gorm"
 )
 
 // database points to the ORM
@@ -25,7 +25,6 @@ func init() {
 
 // creates a new book
 func (b *Book) CreateBook() *Book {
-	db.NewRecord(b)
 	db.Create(&b)
 	return b
 }
@@ -47,6 +46,6 @@ func GetBookById(Id int64) (*Book, *gorm.DB) {
 // delete book by id
 func DeleteBook(Id int64) Book {
 	var book Book
-	db.Where("ID=?", Id).Delete(book)
+	db.Where("ID=?", Id).Delete(&book)
 	return book
 }
